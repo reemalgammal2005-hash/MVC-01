@@ -50,5 +50,22 @@ namespace MVC_01.Controllers
 
 
         #endregion
-    } 
+        #region ModelBinding
+
+        // BaseUrl/Product/Search?Name=Iphone17&Color=Black
+        // BaseUrl/Product/Search?Name=Iphone17&Storage=512
+        // BaseUrl/Product/Search?Storage=512
+
+        public IActionResult Search(ProductFilter filter)
+        {
+            return View();
+        }
+        public IActionResult GetById([FromQuery] int id, [FromQuery(Name = "id2")] int otherId)
+        {
+            return Json("");
+        }
+        #endregion
+    }
 }
+// BaseUrl/Product/Iphone17ProMax/Orange/512GB
+// BaseUrl/Product?Name=Iphone17&Color=Orange&Storage=512GB
