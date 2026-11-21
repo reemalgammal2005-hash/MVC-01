@@ -1,8 +1,10 @@
+using MVC_01.CustomMiddlWare;
+
 namespace MVC_01
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,21 @@ namespace MVC_01
 
 
             var app = builder.Build();
+
+            #region Custom MiddleWare
+            //app.Use(async (context, next) =>
+            // context => Header
+            //{
+            //    Console.WriteLine("Hello!");
+            //    await next(context);
+            //    Console.WriteLine("Bye");
+
+
+            //});
+            #endregion
+            app.UseMiddleware<RequestTimingMiddlWare>();
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -33,7 +50,7 @@ namespace MVC_01
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
-            app.Run();
+            app.Run(); // Stop Applicatio => Must be in the End Application
         }
     }
 }
